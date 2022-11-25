@@ -14,7 +14,7 @@ const ServiceConfig: IServiceConfig = {
   devTimeout: 15000,
 
   prodProxyBaseUrl: "/api/wjhs",
-  prodBaseUrl: "http://ilovesshan.com",
+  prodBaseUrl: "https://32f38232.cpolar.cn/",
   prodTimeout: 5000,
 }
 

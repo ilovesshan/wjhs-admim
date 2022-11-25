@@ -8,8 +8,8 @@ import router from "../router"
 import { LCache } from "../utils/cache"
 
 const baseConfig: AxiosRequestConfig = {
-  baseURL: ServiceConfig.devProxyBaseUrl,
-  timeout: ServiceConfig.devTimeout,
+  baseURL: import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl,
+  timeout: import.meta.env.MODE == "development" ? ServiceConfig.devTimeout : ServiceConfig.prodTimeout,
 }
 
 interface CusResponse<T = any> {
@@ -59,11 +59,11 @@ instance.interceptors.response.use(response => {
     }
   });
 
-const service = async<T = any>(config: AxiosRequestConfig): Promise<CusResponse<T>> => {
+const request = async<T = any>(config: AxiosRequestConfig): Promise<CusResponse<T>> => {
   return new Promise(async (resolve, reject) => {
     const data = await instance.request<CusResponse<T>>(config);
     resolve(data.data);
   });
 }
 
-export default service;
+export default request;

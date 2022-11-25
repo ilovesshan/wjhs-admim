@@ -4,8 +4,18 @@
 </template>
 
 <script setup lang="ts">
+import request from "./api/request";
+
+request({
+  method: "get",
+  url: "/"
+}).then(res => {
+  console.log(res);
+})
+
 </script>
 
 
 <style lang="less" scoped>
+
 </style>
