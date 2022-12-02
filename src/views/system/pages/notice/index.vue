@@ -1,6 +1,6 @@
 <template>
-  <div id="dashboard-page">
-    <h2>首页</h2>
+  <div id="notice-page">
+    <h2>notice管理</h2>
   </div>
 </template>
 
@@ -8,5 +8,5 @@
 </script>
 
 <style lang="less" scoped>
-#dashboard-page {}
+#notice-page {}
 </style>

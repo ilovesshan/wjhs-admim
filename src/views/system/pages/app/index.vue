@@ -1,6 +1,6 @@
 <template>
-  <div id="dashboard-page">
-    <h2>首页</h2>
+  <div id="app-page">
+    <h2>APP管理</h2>
   </div>
 </template>
 
@@ -8,5 +8,5 @@
 </script>
 
 <style lang="less" scoped>
-#dashboard-page {}
+#app-page {}
 </style>
