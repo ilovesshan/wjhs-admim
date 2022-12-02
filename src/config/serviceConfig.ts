@@ -10,11 +10,11 @@ interface IServiceConfig {
 
 const ServiceConfig: IServiceConfig = {
   devProxyBaseUrl: "/api/wjhs",
-  devBaseUrl: "http://localhost",
+  devBaseUrl: "http://localhost:80",
   devTimeout: 15000,
 
   prodProxyBaseUrl: "/api/wjhs",
-  prodBaseUrl: "https://32f38232.cpolar.cn/",
+  prodBaseUrl: "http://114.55.32.234:8127",
   prodTimeout: 5000,
 }
 
