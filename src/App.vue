@@ -1,17 +1,9 @@
 
 <template>
-  <p>wjhs-平台端管理系统</p>
+  <router-view />
 </template>
 
 <script setup lang="ts">
-import request from "./api/request";
-
-request({
-  method: "get",
-  url: "/"
-}).then(res => {
-  console.log(res);
-})
 
 </script>
 
