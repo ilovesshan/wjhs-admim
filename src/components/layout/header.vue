@@ -7,24 +7,37 @@
       </el-breadcrumb>
     </div>
     <div class="header-right">
+      <el-button @click="logout" plain>logout</el-button>
     </div>
   </el-header>
 </template>
 
 <script lang="ts" setup>
 import { ref, watch } from "vue"
-import { useRoute  } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
+
+import { userStore } from "../../store/index"
+
 const route = useRoute()
+const router = useRouter()
 const breadCrumbList = ref<any[]>([]);
+
+const logout = () => {
+  userStore.cleanUserInfo();
+  userStore.cleanUserLoginInfo();
+  router.push({ path: "/login" });
+}
+
 
 watch(() => route.matched, (newVal) => {
   breadCrumbList.value = newVal.filter(r => r.meta && r.meta.title);
 }, { immediate: true })
 
+
 </script>
 
 <style lang="less" scoped>
-.el-header{
+.el-header {
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,14 +1,8 @@
-import { defineStore } from "pinia";
+import userModule from "./modules/user"
 
-const rootStore = defineStore("rootStore", {
-  state() {
-    return {
-      name: "ilovesshan"
-    }
-  },
-  getters: {},
-  actions: {}
-});
+// 用户模块
+const userStore = userModule();
 
-
-export default rootStore;
+export {
+  userStore
+}

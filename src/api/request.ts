@@ -5,7 +5,7 @@ import { ElMessage, ElLoading } from 'element-plus'
 import ServiceConfig from "../config/serviceConfig"
 
 import router from "../router"
-import { LCache } from "../utils/cache"
+import { LCache, SCache } from "../utils/cache"
 
 const baseConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl,
@@ -28,7 +28,7 @@ instance.interceptors.request.use(config => {
   loadingInstance = ElLoading.service({ lock: true, text: '拼命加载中...', background: 'rgba(0, 0, 0, 0.7)', });
 
   // 添加token信息
-  config.headers!["Authorization"] = LCache.get("token");
+  config.headers!["Authorization"] = SCache.get("token");
 
   // 添加时间戳
   config.url += `?t=${new Date().getTime()}`
@@ -39,14 +39,14 @@ instance.interceptors.request.use(config => {
     loadingInstance.close();
     ElMessage({ message: "请求失败,请联系网站管理员", type: 'error' });
     console.log(error);
-  });
+});
 
 
 // 响应拦截器
 instance.interceptors.response.use(response => {
   // 关闭loading
   loadingInstance.close();
-  return response.data;
+  return response;
 },
   error => {
     // 关闭loading
@@ -57,12 +57,17 @@ instance.interceptors.response.use(response => {
     } else {
       ElMessage({ message: "请求失败,请联系网站管理员", type: 'error' });
     }
-  });
+});
 
 const request = async<T = any>(config: AxiosRequestConfig): Promise<CusResponse<T>> => {
   return new Promise(async (resolve, reject) => {
-    const data = await instance.request<CusResponse<T>>(config);
-    resolve(data.data);
+    const res = await instance.request<CusResponse<T>>(config);
+    const { code, message, data } = res.data;
+    if(code == 200){
+      resolve(res.data)
+    }else{
+      ElMessage({ message, type: 'error' });
+    }
   });
 }
 

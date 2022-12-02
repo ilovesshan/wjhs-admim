@@ -24,25 +24,58 @@
 <script lang="ts" setup>
 
 import { reactive, ref } from "vue";
-
+import { useRouter } from "vue-router";
 import { Avatar, Lock } from "@element-plus/icons-vue";
-import { FormInstance } from 'element-plus';
-import { ILoginUserInfo } from "./type";
+import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, FormInstance } from 'element-plus';
+
+import { userAuth, userInfo } from "../../api/user";
+
+import { userStore } from "../../store/index"
+
+import type { ILoginUserInfo } from "./type";
+import type { IUserInfo, IUserLoginInfo } from "../../store/modules/user";
+import { systemDict } from "../../api/system-dict";
+import { SCache } from "../../utils/cache";
+import { canAccess } from "../../permission";
 
 
+const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<ILoginUserInfo>({
   username: "admin",
-  password: "admin123!@#",
+  password: "123456",
 })
+
 const rules = reactive({
-  username: [{ required: true, min: 4, max: 12, trigger: 'blur' }],
-  password: [{ required: true, min: 6, max: 18, trigger: 'blur' }],
+  username: [{ required: true, min: 4, max: 24, trigger: 'blur' }],
+  password: [{ required: true, min: 6, max: 32, trigger: 'blur' }],
 })
+
 const loginHandler = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
-   
+  formEl.validate(async (valid) => {
+    if (valid) {
+      // 授权登录
+      const authResult = await userAuth(ruleForm);
+      userStore.saveUserLoginInfo(authResult.data as IUserLoginInfo);
+
+      // 请求用户信息
+      const userInfoResult = await userInfo(authResult.data.id);
+      userStore.saveUserInfo(userInfoResult.data as IUserInfo);
+
+      // 权限判断
+      if(canAccess(userInfoResult.data.userType)){
+         // 请求数据字典
+        const systemDictResult = await systemDict();
+        SCache.set("systemDict", systemDictResult.data)
+        // 跳转到首页
+        router.push({path:"/"});
+      }else{
+        ElMessage({ message: "非管理员用户暂时不能登录后台管理系统", type: 'error' });
+        userStore.cleanUserInfo();
+        userStore.cleanUserLoginInfo();
+      }
+    }
   });
 }
 
@@ -77,7 +110,6 @@ const loginHandler = (formEl: FormInstance | undefined) => {
     .login-btn {
       width: 100px;
     }
-
 
     .form-bottom {
       margin-top: 30px;
