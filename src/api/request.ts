@@ -31,7 +31,11 @@ instance.interceptors.request.use(config => {
   config.headers!["Authorization"] = SCache.get("token");
 
   // 添加时间戳
-  config.url += `?t=${new Date().getTime()}`
+  if (config.url?.includes('?')) {
+    config.url += `&t=${new Date().getTime()}`
+  } else {
+    config.url += `?t=${new Date().getTime()}`
+  }
   return config;
 },
   error => {
@@ -39,7 +43,7 @@ instance.interceptors.request.use(config => {
     loadingInstance.close();
     ElMessage({ message: "请求失败,请联系网站管理员", type: 'error' });
     console.log(error);
-});
+  });
 
 
 // 响应拦截器
@@ -57,15 +61,15 @@ instance.interceptors.response.use(response => {
     } else {
       ElMessage({ message: "请求失败,请联系网站管理员", type: 'error' });
     }
-});
+  });
 
 const request = async<T = any>(config: AxiosRequestConfig): Promise<CusResponse<T>> => {
   return new Promise(async (resolve, reject) => {
     const res = await instance.request<CusResponse<T>>(config);
     const { code, message, data } = res.data;
-    if(code == 200){
+    if (code == 200) {
       resolve(res.data)
-    }else{
+    } else {
       ElMessage({ message, type: 'error' });
     }
   });
