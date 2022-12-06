@@ -28,7 +28,7 @@ export interface IUserStore {
 
 
 
-const rootStore = defineStore("userStore", {
+const userStore = defineStore("userStore", {
   state(): IUserStore {
     return {
       userLoginInfo: {
@@ -68,4 +68,4 @@ const rootStore = defineStore("userStore", {
 });
 
 
-export default rootStore;
+export default userStore;
