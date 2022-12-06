@@ -58,6 +58,8 @@ instance.interceptors.response.use(response => {
     if (error.response && error.response.status == 301) {
       router.push("/login");
       ElMessage({ message: error.response.data.message, type: 'error' });
+    } else if (error.response && error.response.status == 400) {
+      ElMessage({ message: error.response.data.message, type: 'error' });
     } else {
       ElMessage({ message: "请求失败,请联系网站管理员", type: 'error' });
     }
