@@ -1,8 +1,18 @@
+import noticeModule from "./modules/notice";
+import swiperModule from "./modules/swiper";
 import userModule from "./modules/user"
 
 // 用户模块
 const userStore = userModule();
 
+// 轮播图模块
+const swiperStore = swiperModule();
+
+// 通知公告模块
+const noticeStore = noticeModule();
+
 export {
-  userStore
+  userStore,
+  swiperStore,
+  noticeStore
 }
