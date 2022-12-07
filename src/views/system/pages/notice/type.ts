@@ -9,7 +9,7 @@ export interface INoticeCreateOrUpdate {
 
 export interface INoticeSelect {
   type: number,
-  title?: string | null,
+  title?: string ,
   detail?: string
   beginTime?: string
   endTime?: string

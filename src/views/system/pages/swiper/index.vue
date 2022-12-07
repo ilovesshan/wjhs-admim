@@ -1,21 +1,27 @@
 <template>
   <div id="swiper-page">
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <el-tab-pane label="小程序" name="wxmp">小程序</el-tab-pane>
-      <el-tab-pane label="App" name="app">App</el-tab-pane>
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="小程序" name="wx"> <swiper-list-cpn :list="noticeLIst" :currentIndex="31" />
+      </el-tab-pane>
+      <el-tab-pane label="App" name="app"> <swiper-list-cpn :list="noticeLIst" :currentIndex="32" />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import type { TabsPaneContext } from 'element-plus'
+import { ref, computed } from 'vue'
+import { swiperStore } from '../../../../store';
 
-const activeName = ref('wxmp')
+import swiperListCpn from "./components/swiper-list.vue"
 
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  
-}
+const activeName = ref('wx')
+
+const noticeLIst = computed(() => swiperStore.list);
+const handleClick = () => swiperStore.requestSwiper({ type: activeName.value.includes("wx") ? 32 : 31 });
+
+// 默认加载请求小程序轮播图
+swiperStore.requestSwiper({ type: 31 });
 
 </script>
 
