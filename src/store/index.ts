@@ -1,14 +1,18 @@
-import { defineStore } from "pinia";
+import noticeModule from "./modules/notice";
+import swiperModule from "./modules/swiper";
+import userModule from "./modules/user"
 
-const rootStore = defineStore("rootStore", {
-  state() {
-    return {
-      name: "ilovesshan"
-    }
-  },
-  getters: {},
-  actions: {}
-});
+// 用户模块
+const userStore = userModule();
 
+// 轮播图模块
+const swiperStore = swiperModule();
 
-export default rootStore;
+// 通知公告模块
+const noticeStore = noticeModule();
+
+export {
+  userStore,
+  swiperStore,
+  noticeStore
+}
