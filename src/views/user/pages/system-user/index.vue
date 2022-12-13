@@ -1,32 +1,62 @@
 <template>
   <div id="system-user-page">
-    <!-- 搜索条件框 -->
+    <!-- 操作栏 -->
     <el-card shadow="never">
-      <!-- 搜索条件框 -->
-      <el-row>
-        <el-col>
-          <el-form-item label="用户类型">
-            <el-select v-model="currentUserType">
-              <el-option key="0" label="平台用户" value="0" />
-              <el-option key="2" label="骑手" value="2" />
-              <el-option key="3" label="回收中心" value="3" />
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <!-- 搜索条件框  -->
+      <el-form :inline="true" label-width="68px" label-position="left">
+        <el-form-item label="用户类型">
+          <el-select v-model="currentUserType">
+            <el-option key="0" label="平台用户" value="0" />
+            <el-option key="2" label="骑手" value="2" />
+            <el-option key="3" label="回收中心" value="3" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="handleSearch" type="primary">搜索 <el-icon class="el-icon--right">
+              <Search />
+            </el-icon>
+          </el-button>
+          <el-button @click="handleReset">重置 <el-icon class="el-icon--right">
+              <RefreshRight />
+            </el-icon>
+          </el-button>
+        </el-form-item>
 
-      <!-- 新增按钮 -->
+      </el-form>
+
+      <!-- 新增 、修改、删除、导出 按钮-->
       <el-row>
         <el-button @click="openDialog" plain type="primary">新增<el-icon class="el-icon--right">
             <Plus />
           </el-icon>
         </el-button>
+
+        <el-button @click="handleUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
+          plain>更新<el-icon class="el-icon--right">
+            <Edit />
+          </el-icon>
+        </el-button>
+
+        <el-button @click="handleDelete(selectedIds[0])" type="danger" :disabled="(selectedIds.length < 1)"
+          plain>删除<el-icon class="el-icon--right">
+            <Delete />
+          </el-icon>
+        </el-button>
+
+        <el-button @click="handleExport" type="warning" :disabled="(selectedIds.length < 1)" plain>导出<el-icon
+            class="el-icon--right">
+            <Download />
+          </el-icon>
+        </el-button>
       </el-row>
     </el-card>
 
+
+
     <!-- 表格区域 -->
     <el-card shadow="never">
-      <el-table :data="systemUsers" style="width: 100%">
+      <el-table :data="systemUsers" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" />
         <el-table-column type="index" width="50" />
         <el-table-column prop="username" label="用户名" width="180" />
         <el-table-column prop="nickName" label="昵称" width="180" />
@@ -49,10 +79,10 @@
         <el-table-column prop="phone" label="手机号" width="180" />
         <el-table-column prop="lastVisitTime" label="上次登录时间" width="240" />
         <el-table-column prop="createTime" label="注册时间" width="240" />
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column fixed="right" label="操作" width="200">
           <template #default="scope">
-            <el-button :disabled="scope.row.username == 'admin'" @click="handleDelete(scope.row.id)" link type="danger"
-              size="small">删除</el-button>
+            <el-button @click="handleUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
+            <el-button :disabled="scope.row.username == 'admin'" @click="handleDelete(scope.row.id)" link type="danger" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -109,7 +139,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch, reactive } from "vue";
-import { Plus } from '@element-plus/icons-vue'
+import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 import { ElMessage, ElMessageBox } from "element-plus";
 
@@ -124,6 +154,8 @@ import type { IUserInfo } from "@/store/modules/user";
 import type { IInsertUser } from "./type";
 import { deepClone } from "@/utils/deep-clone";
 
+
+const selectedIds = ref<Array<string>>([]);
 const baseUrl = import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl;
 const systemUsers = computed(() => userStore.systemUserList);
 
@@ -157,8 +189,6 @@ const getSystemUserList = () => {
   })
 }
 
-watch(() => currentUserType.value, () => getSystemUserList())
-
 const handleDelete = (id: string) => {
   ElMessageBox.confirm('确定要删除吗?', '删除', { type: "error" })
     .then(async () => {
@@ -174,7 +204,7 @@ const handleDelete = (id: string) => {
     .catch(() => { })
 }
 
-const openDialog = (id: string)=> {
+const openDialog = (id: string) => {
   dialogVisible.value = true;
   insertUserData = reactive(deepClone<IInsertUser>(defaultInsertUserData()));
 }
@@ -210,6 +240,17 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   }
   return true
 }
+
+
+const handleSelectionChange = (selected: Array<any>) => {
+  selectedIds.value = selected.map((notice: any) => notice.id)
+}
+
+const handleSearch = () => getSystemUserList();
+const handleReset = () => { }
+const handleUpdate = (id: string) => { }
+const handleExport = () => { }
+
 </script>
 <style lang="less" scoped>
 #system-user-page {
