@@ -278,11 +278,12 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (response) => {
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
+  const isJPG = rawFile.type === 'image/jpeg' || 'image/png';
+  if (!isJPG) {
+    ElMessage.error('上传图片只能是 JPG、JPEG、PNG 格式!')
     return false
-  } else if (rawFile.size / 1024 / 1024 > 4) {
-    ElMessage.error('Avatar picture size can not exceed 4MB!')
+  } else if (rawFile.size / 1024 / 1024 > 5) {
+    ElMessage.error('上传图片大小不能超过 5MB!')
     return false
   }
   return true
