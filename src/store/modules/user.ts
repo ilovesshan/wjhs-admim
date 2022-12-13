@@ -21,11 +21,28 @@ export interface IUserLoginInfo {
   token: string,
 }
 
-export interface IUserStore {
-  userInfo: IUserInfo
-  userLoginInfo: IUserLoginInfo
+export interface IWxUserInfo {
+  id: string
+  openId: string
+  skey: string
+  sessionKey: string
+  gender: string
+  avatarUrl: string
+  city: string
+  province: string
+  country: string
+  nickName: string
+  lastVisitTime: string
+  createTime: string
 }
 
+
+export interface IUserStore {
+  userInfo: IUserInfo
+  userLoginInfo: IUserLoginInfo,
+  wxUserList: Array<IWxUserInfo>,
+  systemUserList: Array<IUserInfo>,
+}
 
 
 const userStore = defineStore("userStore", {
@@ -37,6 +54,8 @@ const userStore = defineStore("userStore", {
         token: SCache.get("token"),
       },
       userInfo: SCache.get("userInfo"),
+      wxUserList: [],
+      systemUserList: [],
     }
   },
 
@@ -63,7 +82,15 @@ const userStore = defineStore("userStore", {
     cleanUserInfo() {
       this.$patch({ userInfo: {} })
       SCache.clear()
-    }
+    },
+
+    saveWxUserList(wxUserList: Array<IWxUserInfo>) {
+      this.wxUserList = wxUserList;
+    },
+
+    saveSystemUserList(systemUserList: Array<IUserInfo>) {
+      this.systemUserList = systemUserList;
+    },
   }
 });
 
