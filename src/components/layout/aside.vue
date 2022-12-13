@@ -6,16 +6,42 @@
     </div>
     <el-menu router unique-opened background-color="#304156" :default-active="currentPath" text-color="#bfcbd9"
       @open="handleOpen" @close="handleClose">
+      
+      <!-- 首页 -->
       <el-menu-item index="/home"> 
-        <el-icon> <Orange /> </el-icon>
+        <el-icon> <House /> </el-icon>
         <span>首页</span>
       </el-menu-item>
       
+      <!-- 统计报表 -->
       <el-menu-item index="/statistical-report">
         <el-icon> <DataBoard /></el-icon>
         <span>统计报表</span>
       </el-menu-item>
 
+
+      <!-- 用户管理 -->
+      <el-sub-menu index="/user">
+        <template #title>
+          <el-icon><Avatar /></el-icon>
+          <span>用户管理</span>
+        </template>
+        <el-menu-item index="/user/wx-user">
+          <template #title>
+            <el-icon><Connection /> </el-icon>
+            <span>小程序用户</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/user/system-user">
+          <template #title>
+            <el-icon><Setting /> </el-icon>
+            <span>系统用户</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
+
+
+      <!-- 系统管理 -->
       <el-sub-menu index="/system">
         <template #title>
           <el-icon><Monitor /></el-icon>
@@ -42,6 +68,29 @@
           </template>
         </el-menu-item>
       </el-sub-menu>
+      
+
+      <!-- 回收商品管理 -->
+      <el-sub-menu index="/recycle-goods">
+        <template #title>
+          <el-icon><Orange /></el-icon>
+          <span>回收商品管理</span>
+        </template>
+        <el-menu-item index="/recycle-goods/recycle-goods-type">
+          <template #title>
+            <el-icon><Aim /> </el-icon>
+            <span>分类管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/recycle-goods/recycle-goods">
+          <template #title>
+            <el-icon><Goods /> </el-icon>
+            <span>商品管理</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
+
+    
     </el-menu>
   </el-aside>
 </template>
@@ -50,7 +99,7 @@
 import { ref, watch } from 'vue';
 
 import {
-  Orange, DataBoard, Iphone, Picture, Notification, Monitor
+ House, Orange, Goods, Aim, DataBoard, Iphone, Picture, Notification, Monitor, Connection, Setting, Avatar
 } from '@element-plus/icons-vue'
 
 import { useRoute } from "vue-router"
