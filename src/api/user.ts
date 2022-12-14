@@ -1,6 +1,5 @@
 import request from "./request";
-import type { ILoginUserInfo } from "@/views/login/type";
-import { IInsertOrUpdateUser } from "@/interfaces/user";
+import type { IInsertOrUpdateUser, ILoginUserInfo } from "@/interfaces/user";
 
 
 // 用户授权

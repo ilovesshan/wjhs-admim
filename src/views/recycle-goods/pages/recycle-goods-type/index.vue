@@ -110,10 +110,9 @@ import { ElMessage, ElMessageBox } from "element-plus";
 
 import { recycleGoodsStore } from '@/store';
 import { deleteRecycleGoodsType, insertRecycleGoodsType, selectRecycleGoodsType, selectRecycleGoodsTypeById, updateRecycleGoodsType } from '@/api/recycle-goods';
-
-import type { IInsertOrUpdateRecycleGoodsType, IRecycleGoodsType } from '@/store/modules/recycle-goods';
 import { getStringByCode } from '@/utils/system-dict';
 import { deepClone } from '@/utils/deep-clone';
+import type { IInsertOrUpdateRecycleGoodsType, IRecycleGoodsType } from '@/interfaces/recycle-goods';
 
 const dialogVisible = ref(false);
 
