@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { swiperStore } from '../../../../store';
+import { swiperStore } from '@/store';
 
 import swiperListCpn from "./components/swiper-list.vue"
 

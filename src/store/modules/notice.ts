@@ -1,6 +1,6 @@
+import { INotice, INoticeSelect } from "@/interfaces/notice";
 import { defineStore } from "pinia";
 import { noticeList } from "../../api/notice";
-import type { INotice, INoticeSelect } from "../../views/system/pages/notice/type";
 
 interface INoticeStore {
   type: number,

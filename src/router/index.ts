@@ -19,7 +19,7 @@ const commonRoutes: RouteRecordRaw[] = [
       {
         path: "/statistical-report",
         name: "statistical-report",
-        meta: { title: "统计报表", icon: "home" },
+        meta: { title: "统计报表", icon: "statistical-report" },
         component: () => import("@/views/statistical-report/index.vue"),
       },
       {
@@ -46,6 +46,49 @@ const commonRoutes: RouteRecordRaw[] = [
             name: "app",
             meta: { title: "App管理", icon: "swiper" },
             component: () => import("@/views/system/pages/app/index.vue"),
+          },
+        ]
+      },
+      {
+        path: "/recycle-goods",
+        name: "recycle-goods",
+        redirect:"/recycle-goods-type",
+        meta: { title: "回收商品管理", icon: "recycle-goods" },
+        component: () => import("@/views/recycle-goods/index.vue"),
+        children:[
+          {
+            path: "recycle-goods-type",
+            name: "recycle-goods-type",
+            meta: { title: "分类管理", icon: "recycle-goods-type" },
+            component: () => import("@/views/recycle-goods/pages/recycle-goods-type/index.vue"),
+          },
+          {
+            path: "recycle-goods",
+            name: "recycle-goods",
+            meta: { title: "商品管理", icon: "recycle-goods" },
+            component: () => import("@/views/recycle-goods/pages/recycle-goods/index.vue"),
+          },
+        ]
+      },
+
+      {
+        path: "/user",
+        name: "user",
+        redirect:"/wx-user",
+        meta: { title: "用户管理", icon: "user" },
+        component: () => import("@/views/user/index.vue"),
+        children:[
+          {
+            path: "wx-user",
+            name: "wx-user",
+            meta: { title: "小程序用户", icon: "wx-user" },
+            component: () => import("@/views/user/pages/wx-user/index.vue"),
+          },
+          {
+            path: "system-user",
+            name: "system-user",
+            meta: { title: "系统用户", icon: "system-user" },
+            component: () => import("@/views/user/pages/system-user/index.vue"),
           },
         ]
       }

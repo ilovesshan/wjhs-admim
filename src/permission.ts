@@ -1,7 +1,7 @@
 import { ElMessage } from "element-plus";
 import router from "./router";
-import { IUserInfo } from "./store/modules/user";
 import { SCache } from "./utils/cache";
+import type { IUserInfo } from "./interfaces/user";
 
 // 路由拦截
 const whileList: Array<string> = ["notFound", "login"];

@@ -1,4 +1,3 @@
-import { ILoginUserInfo } from "../views/login/type";
 import request from "./request";
 
 // 数据字典

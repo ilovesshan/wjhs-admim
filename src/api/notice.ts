@@ -1,5 +1,6 @@
 import request from "./request";
-import type { INoticeSelect, INoticeCreateOrUpdate } from "../views/system/pages/Notice/type";
+import type { INoticeCreateOrUpdate, INoticeSelect } from "@/interfaces/notice";
+
 
 // 获取通知公告列表
 export function noticeList(noticeSelect: INoticeSelect) {
