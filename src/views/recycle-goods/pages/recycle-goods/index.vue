@@ -80,9 +80,7 @@
           <el-table-column fixed="right" label="操作" width="280">
             <template #default="scope">
               <el-button @click="openDialogWithUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
-              <el-button @click="handleShelves(scope.row)" link type="warning" size="small">{{ scope.row.status == "33"
-                  ? "下架" : "上架"
-              }}</el-button>
+              <el-button @click="handleShelves(scope.row)" link :type="scope.row.status == '33'? 'warning' : 'success' "  size="small">{{ scope.row.status == "33"    ? "下架" : "上架" }}</el-button>
               <el-button @click="handleDelete(scope.row.id)" link type="danger" size="small">删除</el-button>
             </template>
           </el-table-column>
