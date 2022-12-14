@@ -125,7 +125,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input :disabled="insertOrUpdateUserData.id == ''" v-model="insertOrUpdateUserData.password" show-password
+          <el-input :disabled="insertOrUpdateUserData.username=='admin'" v-model="insertOrUpdateUserData.password" show-password
             type="password" />
         </el-form-item>
       </el-form>
@@ -208,6 +208,7 @@ const handleDelete = (id: string) => {
 
 const openDialogWithAdd = () => {
   dialogVisible.value = true;
+  imageUrl.value = "";
   insertOrUpdateUserData = reactive(deepClone<IInsertOrUpdateUser>(defaultValue()));
 }
 
@@ -258,7 +259,9 @@ const handleReset = () => { }
 const openDialogWithUpdate = async (id: string) => {
   const result = await selectUserById(id);
   insertOrUpdateUserData = reactive<IInsertOrUpdateUser>(result.data);
-  imageUrl.value = baseUrl + result.data.attachment.url;
+  if (result.data.attachment) {
+    imageUrl.value = baseUrl + result.data.attachment.url;
+  }
   dialogVisible.value = true;
 }
 
