@@ -33,12 +33,12 @@
 
       <!-- 新增 、修改、删除、导出 按钮-->
       <el-row>
-        <el-button @click="openDialog" plain type="primary">新增<el-icon class="el-icon--right">
+        <el-button @click="openDialogWithAdd" plain type="primary">新增<el-icon class="el-icon--right">
             <Plus />
           </el-icon>
         </el-button>
 
-        <el-button @click="handleUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
+        <el-button @click="openDialogWithUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
           plain>更新<el-icon class="el-icon--right">
             <Edit />
           </el-icon>
@@ -66,15 +66,18 @@
         <el-table-column prop="name" show-overflow-tooltip label="分类名称" width="160" />
         <el-table-column prop="status" show-overflow-tooltip label="状态" width="100">
           <template #default="scope">
-            <el-tag :type="scope.row.status == '33' ? 'success' : 'danger' ">{{ getStringByCode(scope.row.status) }}</el-tag>
+            <el-tag :type="scope.row.status == '33' ? 'success' : 'danger'">{{ getStringByCode(scope.row.status)
+            }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="describe" show-overflow-tooltip label="描述" width="600" />
         <el-table-column prop="createTime" label="创建时间" width="240" />
         <el-table-column fixed="right" label="操作" width="280">
           <template #default="scope">
-            <el-button @click="handleUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
-            <el-button @click="handleShelves(scope.row)" link type="warning" size="small">{{ scope.row.status == "33" ? "下架" : "上架"}}</el-button>
+            <el-button @click="openDialogWithUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
+            <el-button @click="handleShelves(scope.row)" link type="warning" size="small">{{ scope.row.status == "33" ?
+                "下架" : "上架"
+            }}</el-button>
             <el-button @click="handleDelete(scope.row.id)" link type="danger" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -83,18 +86,18 @@
 
     <!-- 新增弹框 -->
     <el-dialog v-model="dialogVisible" title="新增回收商品分类" width="30%">
-      <el-form :model="insertRecycleGoodTypeData" label-width="80px" label-position="left">
+      <el-form :model="insertOrUpdateRecycleGoodTypeData" label-width="80px" label-position="left">
         <el-form-item label="分类名称">
-          <el-input v-model="insertRecycleGoodTypeData.name" />
+          <el-input v-model="insertOrUpdateRecycleGoodTypeData.name" />
         </el-form-item>
         <el-form-item label="描述">
-          <el-input v-model="insertRecycleGoodTypeData.describe" />
+          <el-input v-model="insertOrUpdateRecycleGoodTypeData.describe" type="textarea"/>
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleInsertRecycleGoodType"> 确定</el-button>
+          <el-button type="primary" @click="handleInsertOrUpdateRecycleGoodType"> 确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -108,20 +111,30 @@ import { ElMessage, ElMessageBox } from "element-plus";
 
 
 import { recycleGoodsStore } from '@/store';
-import { deleteRecycleGoodsType, insertRecycleGoodsType, selectRecycleGoodsType, updateRecycleGoodsType} from '@/api/recycle-goods';
+import { deleteRecycleGoodsType, insertRecycleGoodsType, selectRecycleGoodsType, selectRecycleGoodsTypeById, updateRecycleGoodsType } from '@/api/recycle-goods';
 
-import type { IRecycleGoodsType } from '@/store/modules/recycle-goods';
+import type { IInsertOrUpdateRecycleGoodsType, IRecycleGoodsType } from '@/store/modules/recycle-goods';
 import { getStringByCode } from '@/utils/system-dict';
+import { deepClone } from '@/utils/deep-clone';
 
 const dialogVisible = ref(false);
-const insertRecycleGoodTypeData = reactive({
-  name: "",
-  describe: ""
-});
+
+
+const defaultValue = (): IInsertOrUpdateRecycleGoodsType => {
+  return {
+    name: "",
+    describe: ""
+  }
+}
+let insertOrUpdateRecycleGoodTypeData = reactive(defaultValue());
+
 const selectedIds = ref<Array<string>>([]);
 const goodsTypes = computed(() => recycleGoodsStore.goodsTypeList);
 
-const openDialog = () => dialogVisible.value = true;
+const openDialogWithAdd = () => {
+  dialogVisible.value = true;
+  insertOrUpdateRecycleGoodTypeData = reactive(deepClone<IInsertOrUpdateRecycleGoodsType>(defaultValue()))
+};
 
 const requestRecycleGoodsType = async () => {
   const result = await selectRecycleGoodsType();
@@ -134,8 +147,14 @@ const handleSelectionChange = (selected: Array<IRecycleGoodsType>) => {
 
 requestRecycleGoodsType();
 
-const handleInsertRecycleGoodType = async () => {
-  const result = await insertRecycleGoodsType(insertRecycleGoodTypeData);
+
+const handleInsertOrUpdateRecycleGoodType = async () => {
+  let result = null;
+  if (insertOrUpdateRecycleGoodTypeData.id) {
+    result = await updateRecycleGoodsType(insertOrUpdateRecycleGoodTypeData);
+  } else {
+    result = await insertRecycleGoodsType(insertOrUpdateRecycleGoodTypeData);
+  }
   if (result.code == 200) {
     ElMessage.success(result.message)
     dialogVisible.value = false;
@@ -173,7 +192,13 @@ const handleShelves = async (row: any) => {
     ElMessage.error(result.message)
   }
 }
-const handleUpdate = (id: string) => { }
+
+const openDialogWithUpdate = async (id: string) => {
+  const result = await selectRecycleGoodsTypeById(id);
+  insertOrUpdateRecycleGoodTypeData = reactive(result.data);
+  dialogVisible.value = true;
+}
+
 const handleExport = () => { }
 const handleSearch = () => { }
 const handleReset = () => { }

@@ -9,6 +9,14 @@ export interface IRecycleGoodsType {
   createTime: string,
 }
 
+export interface IInsertOrUpdateRecycleGoodsType {
+  id?: string,
+  name: string,
+  describe: string,
+}
+
+
+
 export interface IRecycleGoods {
   id: string,
   typeId: string,
