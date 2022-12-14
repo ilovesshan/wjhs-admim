@@ -5,8 +5,12 @@
         <IndexAside />
         <el-container direction="vertical">
           <IndexHeader />
-          <el-main> 
-            <router-view></router-view>
+          <el-main>
+            <router-view v-slot="{ Component }">
+              <transition name="fade-transform" mode="out-in">
+                <component :is="Component" />
+              </transition>
+            </router-view>
           </el-main>
           <IndexFooter />
         </el-container>
@@ -16,9 +20,9 @@
 </template>
 
 <script lang="ts" setup>
-  import IndexHeader from "@/components/layout/header.vue"
-  import IndexAside from "@/components/layout/aside.vue"
-  import IndexFooter from "@/components/layout/footer.vue"
+import IndexHeader from "@/components/layout/header.vue"
+import IndexAside from "@/components/layout/aside.vue"
+import IndexFooter from "@/components/layout/footer.vue"
 </script>
 
 <style scoped lang="less">
