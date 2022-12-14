@@ -1,4 +1,5 @@
-export interface IInsertUser {
+export interface IInsertOrUpdateUser {
+  id?: string
   attachmentId: string,
   gender: string,
   nickName: string,

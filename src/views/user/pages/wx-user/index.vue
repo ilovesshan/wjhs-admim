@@ -39,7 +39,7 @@
 
       <!-- 新增 、修改、删除、导出 按钮-->
       <el-row>
-        <el-button @click="openDialog" plain type="primary">新增<el-icon class="el-icon--right">
+        <el-button disabled @click="openDialog" plain type="primary">新增<el-icon class="el-icon--right">
             <Plus />
           </el-icon>
         </el-button>

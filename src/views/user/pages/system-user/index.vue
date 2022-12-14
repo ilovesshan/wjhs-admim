@@ -26,12 +26,12 @@
 
       <!-- 新增 、修改、删除、导出 按钮-->
       <el-row>
-        <el-button @click="openDialog" plain type="primary">新增<el-icon class="el-icon--right">
+        <el-button @click="openDialogWithAdd" plain type="primary">新增<el-icon class="el-icon--right">
             <Plus />
           </el-icon>
         </el-button>
 
-        <el-button @click="handleUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
+        <el-button @click="openDialogWithUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
           plain>更新<el-icon class="el-icon--right">
             <Edit />
           </el-icon>
@@ -81,56 +81,57 @@
         <el-table-column prop="createTime" label="注册时间" width="240" />
         <el-table-column fixed="right" label="操作" width="200">
           <template #default="scope">
-            <el-button @click="handleUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
-            <el-button :disabled="scope.row.username == 'admin'" @click="handleDelete(scope.row.id)" link type="danger" size="small">删除</el-button>
+            <el-button @click="openDialogWithUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
+            <el-button :disabled="scope.row.username == 'admin'" @click="handleDelete(scope.row.id)" link type="danger"
+              size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
 
     <!-- 新增弹框 -->
-    <el-dialog v-model="dialogVisible" title="新增用户" width="30%">
-      <el-form :model="insertUserData" label-width="80px" label-position="left">
+    <el-dialog v-model="dialogVisible" title="新增/更新用户" width="30%">
+      <el-form :model="insertOrUpdateUserData" label-width="80px" label-position="left">
         <el-form-item label="用户名">
-          <el-input v-model="insertUserData.username" />
+          <el-input v-model="insertOrUpdateUserData.username" />
         </el-form-item>
         <el-form-item label="昵称">
-          <el-input v-model="insertUserData.nickName" />
+          <el-input v-model="insertOrUpdateUserData.nickName" />
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="insertUserData.phone" />
+          <el-input v-model="insertOrUpdateUserData.phone" />
         </el-form-item>
         <el-form-item label="头像">
-          <el-upload style="width:200px; height:80px; border: 1px solid #dcdfe6; line-height: 80px; text-align: center;"
+          <el-upload style="width:100px; height:80px; border: 1px solid #dcdfe6; line-height: 80px; text-align: center;"
             :action="baseUrl + '/attachments'" :headers="uploadHeader" :show-file-list="false"
             :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" width="200" height="80" />
+            <img v-if="imageUrl" :src="imageUrl" class="avatar" width="100" height="80" />
             <el-icon v-else class="avatar-uploader-icon">
               <Plus />
             </el-icon>
           </el-upload>
         </el-form-item>
         <el-form-item label="性别">
-          <el-select v-model="insertUserData.gender" placeholder="">
+          <el-select v-model="insertOrUpdateUserData.gender" placeholder="">
             <el-option key="20" label="男" value="20" />
             <el-option key="21" label="女" value="21" />
           </el-select>
         </el-form-item>
         <el-form-item label="用户类型">
-          <el-select v-model="insertUserData.userType" placeholder="">
+          <el-select v-model="insertOrUpdateUserData.userType" placeholder="">
             <el-option key="0" label="平台用户" value="0" />
             <el-option key="2" label="骑手" value="2" />
             <el-option key="3" label="回收中心" value="3" />
           </el-select>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="insertUserData.password" show-password type="password" />
+          <el-input :disabled="insertOrUpdateUserData.id == '' "  v-model="insertOrUpdateUserData.password" show-password type="password" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleInsertUser"> 确定</el-button>
+          <el-button type="primary" @click="handleInsertOrUpdateUser"> 确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -138,12 +139,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch, reactive } from "vue";
+import { computed, ref, reactive } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 import { ElMessage, ElMessageBox } from "element-plus";
 
-import { systemUserList, insertUser, deleteUser } from "@/api/user";
+import { systemUserList, insertUser, deleteUser, selectUserById, updateUser } from "@/api/user";
 import { userStore } from "@/store/index"
 
 import { getStringByCode } from "@/utils/system-dict"
@@ -151,7 +152,7 @@ import ServiceConfig from "@/config/serviceConfig";
 import { SCache } from "@/utils/cache";
 
 import type { IUserInfo } from "@/store/modules/user";
-import type { IInsertUser } from "./type";
+import type { IInsertOrUpdateUser } from "./type";
 import { deepClone } from "@/utils/deep-clone";
 
 
@@ -163,7 +164,7 @@ const uploadHeader = {
   Authorization: "Bearer " + SCache.get("token"),
 }
 
-const defaultInsertUserData = (): IInsertUser => {
+const defaultValue = (): IInsertOrUpdateUser => {
   return {
     "attachmentId": "",
     "gender": "",
@@ -178,7 +179,7 @@ const defaultInsertUserData = (): IInsertUser => {
 const imageUrl = ref<string>("");
 const currentUserType = ref("0");
 const dialogVisible = ref(false);
-let insertUserData = reactive(defaultInsertUserData());
+let insertOrUpdateUserData = reactive(defaultValue());
 
 
 const getSystemUserList = () => {
@@ -204,28 +205,32 @@ const handleDelete = (id: string) => {
     .catch(() => { })
 }
 
-const openDialog = (id: string) => {
+const openDialogWithAdd = () => {
   dialogVisible.value = true;
-  insertUserData = reactive(deepClone<IInsertUser>(defaultInsertUserData()));
+  insertOrUpdateUserData = reactive(deepClone<IInsertOrUpdateUser>(defaultValue()));
 }
 
-const handleInsertUser = () => {
-  insertUser(insertUserData).then(res => {
-    if (res.code == 200) {
-      ElMessage.success(res["message"])
-      dialogVisible.value = false;
-      imageUrl.value = "";
-      getSystemUserList();
-    } else {
-      ElMessage.error(res["message"])
-    }
-  })
+const handleInsertOrUpdateUser = async () => {
+  let result = null;
+  if (insertOrUpdateUserData.id) {
+    result = await updateUser(insertOrUpdateUserData)
+  } else {
+    result = await insertUser(insertOrUpdateUserData)
+  }
+  if (result.code == 200) {
+    ElMessage.success(result.message)
+    dialogVisible.value = false;
+    imageUrl.value = "";
+    getSystemUserList();
+  } else {
+    ElMessage.success(result.message)
+  }
 }
 
 getSystemUserList();
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response) => {
-  insertUserData.attachmentId = response.data.id;
+  insertOrUpdateUserData.attachmentId = response.data.id;
   imageUrl.value = baseUrl + response.data.url;
 }
 
@@ -248,7 +253,14 @@ const handleSelectionChange = (selected: Array<any>) => {
 
 const handleSearch = () => getSystemUserList();
 const handleReset = () => { }
-const handleUpdate = (id: string) => { }
+
+const openDialogWithUpdate = async (id: string) => {
+  const result = await selectUserById(id);
+  insertOrUpdateUserData = reactive<IInsertOrUpdateUser>(result.data);
+  imageUrl.value = baseUrl + result.data.attachment.url;
+  dialogVisible.value = true;
+}
+
 const handleExport = () => { }
 
 </script>

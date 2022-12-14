@@ -1,4 +1,4 @@
-import { IInsertUser } from "@/views/user/pages/system-user/type";
+import { IInsertOrUpdateUser } from "@/views/user/pages/system-user/type";
 import { ILoginUserInfo } from "../views/login/type";
 import request from "./request";
 
@@ -36,7 +36,7 @@ export function systemUserList(type: string) {
 }
 
 // 新增用户
-export function insertUser(data: IInsertUser) {
+export function insertUser(data: IInsertOrUpdateUser) {
   return request({
     method: "POST",
     url: `users`,
@@ -49,5 +49,23 @@ export function deleteUser(userId: string) {
   return request({
     method: "DELETE",
     url: `users/${userId}`,
+  })
+}
+
+
+// 根据ID获取用户
+export function selectUserById(userId: string) {
+  return request({
+    method: "GET",
+    url: `users/${userId}`,
+  })
+}
+
+// 更新用户
+export function updateUser(data: IInsertOrUpdateUser) {
+  return request({
+    method: "PUT",
+    url: `users`,
+    data,
   })
 }
