@@ -1,66 +1,57 @@
 <template>
   <div id="swiper-list-container">
-    <!-- 头部 -->
-    <div class="conditions-container">
-      <el-card shadow="never">
+    <!-- 操作栏 -->
+    <el-card shadow="never">
+      <!-- 搜索条件框 -->
+      <el-form :inline="true" label-width="68px" label-position="left">
 
-        <!-- 搜索条件框 -->
-        <el-row :gutter="20" class="condition-input-container">
-          <el-col :span="6">
-            <el-form-item label="标题">
-              <el-input v-model="selectedConditions.title" placeholder="标题关键字" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="创建时间">
-              <el-date-picker v-model="selectedConditions.tempTime" format="YYYY-MM-DD" type="daterange"
-                range-separator="到" value-format="YYYY-MM-DD HH:mm:ss" @change="datePickerChange"
-                start-placeholder="开始日期" end-placeholder="结束日期" />
-            </el-form-item>
-          </el-col>
-        </el-row>
+        <el-form-item label="标题">
+          <el-input v-model="selectedConditions.title" placeholder="标题关键字" />
+        </el-form-item>
+        <el-form-item label="创建时间">
+          <el-date-picker v-model="selectedConditions.tempTime" format="YYYY-MM-DD" type="daterange" range-separator="到"
+            value-format="YYYY-MM-DD HH:mm:ss" @change="datePickerChange" start-placeholder="开始日期"
+            end-placeholder="结束日期" />
+        </el-form-item>
 
         <!-- 搜索、重置 按钮-->
-        <el-row class="search-and-reset-container">
+        <el-form-item>
           <el-button @click="handleSearch" type="primary">搜索 <el-icon class="el-icon--right">
               <Search />
             </el-icon>
           </el-button>
-
           <el-button @click="handleReset">重置 <el-icon class="el-icon--right">
               <RefreshRight />
             </el-icon>
           </el-button>
-        </el-row>
+        </el-form-item>
+      </el-form>
+      <!-- 新增 、修改、删除、导出 按钮-->
+      <el-row>
+        <el-button @click="handleInsert" plain type="primary">新增 <el-icon class="el-icon--right">
+            <Plus />
+          </el-icon>
+        </el-button>
 
-        <!-- 新增 、修改、删除、导出 按钮-->
-        <el-row>
-          <el-button @click="handleInsert" plain type="primary">新增 <el-icon class="el-icon--right">
-              <Plus />
-            </el-icon>
-          </el-button>
+        <el-button @click="handleUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
+          plain>更新<el-icon class="el-icon--right">
+            <Edit />
+          </el-icon>
+        </el-button>
 
-          <el-button @click="handleUpdate(selectedIds[0])" type="success" :disabled="(selectedIds.length != 1)"
-            plain>更新<el-icon class="el-icon--right">
-              <Edit />
-            </el-icon>
-          </el-button>
+        <el-button @click="handleDelete(selectedIds[0])" type="danger" :disabled="(selectedIds.length < 1)"
+          plain>删除<el-icon class="el-icon--right">
+            <Delete />
+          </el-icon>
+        </el-button>
 
-          <el-button @click="handleDelete(selectedIds[0])" type="danger" :disabled="(selectedIds.length < 1)"
-            plain>删除<el-icon class="el-icon--right">
-              <Delete />
-            </el-icon>
-          </el-button>
-
-          <el-button @click="handleExport" type="warning" :disabled="(selectedIds.length < 1)" plain>导出<el-icon
-              class="el-icon--right">
-              <Download />
-            </el-icon>
-          </el-button>
-        </el-row>
-
-      </el-card>
-    </div>
+        <el-button @click="handleExport" type="warning" :disabled="(selectedIds.length < 1)" plain>导出<el-icon
+            class="el-icon--right">
+            <Download />
+          </el-icon>
+        </el-button>
+      </el-row>
+    </el-card>
 
     <!-- 表格数据 -->
     <div id="notice-list-container">
@@ -91,6 +82,7 @@
         </el-table>
       </el-card>
     </div>
+
   </div>
 
   <el-dialog v-model="dialogVisible" title="新增/更新" width="30%" :before-close="() => dialogVisible = false">
@@ -292,5 +284,13 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 </script>
 
 <style lang="less" scoped>
-#swiper-list-container {}
+#swiper-list-container {
+  .el-card {
+    margin-bottom: 15px;
+
+    ::v-deep .el-form-item__label {
+      font-weight: 700 !important;
+    }
+  }
+}
 </style>

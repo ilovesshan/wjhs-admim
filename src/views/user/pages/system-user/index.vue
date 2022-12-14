@@ -268,6 +268,10 @@ const handleExport = () => { }
 #system-user-page {
   .el-card {
     margin-bottom: 15px;
+
+    ::v-deep .el-form-item__label {
+      font-weight: 700 !important;
+    }
   }
 }
 </style>
