@@ -154,9 +154,10 @@ import { recycleGoodsStore } from "@/store/index"
 import { getStringByCode } from "@/utils/system-dict"
 import ServiceConfig from "@/config/serviceConfig";
 import { deleteRecycleGoods, insertRecycleGoods, selectRecycleGoodsById, selectRecycleGoodsByType, selectRecycleGoodsType, updateRecycleGoods } from "@/api/recycle-goods";
-import { IInsertOrUpdateRecycleGoods, IRecycleGoods, IRecycleGoodsType } from "@/store/modules/recycle-goods";
+
 import { deepClone } from "@/utils/deep-clone";
 import { SCache } from "@/utils/cache";
+import { IInsertOrUpdateRecycleGoods, IRecycleGoods, IRecycleGoodsType } from "@/interfaces/recycle-goods";
 
 const dialogVisible = ref(false);
 const currentGoodsType = ref("585453a37a1845f48b2cdc697b763734");
