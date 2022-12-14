@@ -14,7 +14,7 @@ import { ref, computed } from 'vue'
 
 import noticeListCpn from "./components/notice-list.vue";
 
-import { noticeStore } from '../../../../store';
+import { noticeStore } from '@/store';
 
 const activeName = ref("wx")
 

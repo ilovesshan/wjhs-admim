@@ -1,5 +1,5 @@
-import { IInsertOrUpdateRecycleGoods } from "@/store/modules/recycle-goods";
 import request from "./request";
+import type { IInsertOrUpdateRecycleGoods } from "@/interfaces/recycle-goods";
 
 
 // 获取回收商品分类

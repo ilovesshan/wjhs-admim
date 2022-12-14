@@ -125,7 +125,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input :disabled="insertOrUpdateUserData.id == '' "  v-model="insertOrUpdateUserData.password" show-password type="password" />
+          <el-input :disabled="insertOrUpdateUserData.id == ''" v-model="insertOrUpdateUserData.password" show-password
+            type="password" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -141,7 +142,7 @@
 <script lang="ts" setup>
 import { computed, ref, reactive } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
-import type { UploadProps } from 'element-plus'
+
 import { ElMessage, ElMessageBox } from "element-plus";
 
 import { systemUserList, insertUser, deleteUser, selectUserById, updateUser } from "@/api/user";
@@ -150,10 +151,10 @@ import { userStore } from "@/store/index"
 import { getStringByCode } from "@/utils/system-dict"
 import ServiceConfig from "@/config/serviceConfig";
 import { SCache } from "@/utils/cache";
-
-import type { IUserInfo } from "@/store/modules/user";
-import type { IInsertOrUpdateUser } from "./type";
 import { deepClone } from "@/utils/deep-clone";
+
+import type { UploadProps } from 'element-plus'
+import { IInsertOrUpdateUser, IUserInfo } from "@/interfaces/user";
 
 
 const selectedIds = ref<Array<string>>([]);

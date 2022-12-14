@@ -1,7 +1,7 @@
+import { ISwiper, ISwiperSelect } from "@/interfaces/swiper";
 import { defineStore } from "pinia";
 import { swiperList } from "../../api/swiper";
 import ServiceConfig from "../../config/serviceConfig";
-import { ISwiper, ISwiperSelect } from "../../views/system/pages/swiper/type";
 
 interface ISwiperStore {
   type: number,

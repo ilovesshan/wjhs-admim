@@ -1,3 +1,5 @@
+import { IAttachment } from "./common"
+
 export interface ISwiperCreateOrUpdate {
   id: string,
   type: number,
@@ -9,14 +11,7 @@ export interface ISwiperCreateOrUpdate {
   attachment?: IAttachment,
 }
 
-export interface IAttachment {
-  id?: string,
-  url?: string,
-  createByUserId?: string,
-  createByUserName?: string,
-  createByUserType?: string,
-  createTime?: string,
-}
+
 
 export interface ISwiper {
   id: string,

@@ -114,10 +114,12 @@
 import { toRefs, ref, reactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
-import type { INotice, INoticeSelect, INoticeCreateOrUpdate } from "../type"
-import { noticeStore } from "../../../../../store";
-import { deepClone } from "../../../../../utils/deep-clone"
-import { noticeGetById, noticeUpdate, noticeInsert, noticeDelete } from "../../../../../api/notice";
+import { noticeStore } from "@/store";
+import { deepClone } from "@/utils/deep-clone"
+import { noticeGetById, noticeUpdate, noticeInsert, noticeDelete } from "@/api/notice";
+
+import type{ INotice, INoticeSelect, INoticeCreateOrUpdate } from "@/interfaces/notice";
+
 
 //子组件接收父组件数据
 const props = defineProps({

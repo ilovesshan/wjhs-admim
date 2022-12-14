@@ -1,5 +1,6 @@
 import request from "./request";
-import type { ISwiperCreateOrUpdate, ISwiperSelect } from "../views/system/pages/swiper/type";
+import type { ISwiperCreateOrUpdate, ISwiperSelect } from "@/interfaces/swiper";
+
 
 // 获取轮播图列表
 export function swiperList(swiperSelect: ISwiperSelect) {

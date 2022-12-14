@@ -28,15 +28,15 @@ import { useRouter } from "vue-router";
 import { Avatar, Lock } from "@element-plus/icons-vue";
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, FormInstance } from 'element-plus';
 
-import { userAuth, userInfo } from "../../api/user";
+import { userAuth, userInfo } from "@/api/user";
 
-import { userStore } from "../../store/index"
+import { userStore } from "@/store/index"
 
-import type { ILoginUserInfo } from "./type";
-import type { IUserInfo, IUserLoginInfo } from "../../store/modules/user";
-import { systemDict } from "../../api/system-dict";
-import { SCache } from "../../utils/cache";
-import { canAccess } from "../../permission";
+import { systemDict } from "@/api/system-dict";
+import { SCache } from "@/utils/cache";
+import { canAccess } from "@/permission";
+
+import type { ILoginUserInfo, IUserInfo, IUserLoginInfo } from "@/interfaces/user";
 
 
 const router = useRouter()

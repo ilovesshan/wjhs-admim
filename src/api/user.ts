@@ -1,6 +1,7 @@
-import { IInsertOrUpdateUser } from "@/views/user/pages/system-user/type";
-import { ILoginUserInfo } from "../views/login/type";
 import request from "./request";
+import type { ILoginUserInfo } from "@/views/login/type";
+import { IInsertOrUpdateUser } from "@/interfaces/user";
+
 
 // 用户授权
 export function userAuth(loginUserInfo: ILoginUserInfo) {

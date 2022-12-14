@@ -5,7 +5,7 @@ import { ElMessage, ElLoading } from 'element-plus'
 import ServiceConfig from "../config/serviceConfig"
 
 import router from "../router"
-import { LCache, SCache } from "../utils/cache"
+import { SCache } from "../utils/cache"
 
 const baseConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl,

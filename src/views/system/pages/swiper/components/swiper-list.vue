@@ -124,17 +124,17 @@
 
 import { toRefs, ref, reactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import type { UploadProps } from 'element-plus'
+
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue';
+import ServiceConfig from "@/config/serviceConfig";
 
-import type { ISwiper, ISwiperSelect, ISwiperCreateOrUpdate } from "../type"
+import { swiperStore } from "@/store";
+import { deepClone } from "@/utils/deep-clone"
+import { swiperGetById, swiperUpdate, swiperInsert, swiperDelete } from "@/api/swiper";
+import { SCache } from "@/utils/cache";
 
-import { swiperStore } from "../../../../../store";
-import { deepClone } from "../../../../../utils/deep-clone"
-import { swiperGetById, swiperUpdate, swiperInsert, swiperDelete } from "../../../../../api/swiper";
-import ServiceConfig from "../../../../../config/serviceConfig";
-import { SCache } from "../../../../../utils/cache";
-
+import type{ ISwiper, ISwiperCreateOrUpdate, ISwiperSelect } from "@/interfaces/swiper";
+import type { UploadProps } from 'element-plus'
 
 //子组件接收父组件数据
 const props = defineProps({

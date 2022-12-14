@@ -97,9 +97,10 @@ import { computed, ref } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
 import { wxUserList } from "@/api/user";
 import { userStore } from "@/store/index"
-import { IWxUserInfo } from "@/store/modules/user";
 import { getStringByCode } from "@/utils/system-dict"
 import ServiceConfig from "@/config/serviceConfig";
+
+import type { IWxUserInfo } from "@/interfaces/user";
 
 const selectedIds = ref<Array<string>>([]);
 const baseUrl = import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl;
