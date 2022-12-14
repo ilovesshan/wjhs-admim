@@ -66,7 +66,7 @@
         <el-table-column prop="name" show-overflow-tooltip label="分类名称" width="160" />
         <el-table-column prop="status" show-overflow-tooltip label="状态" width="100">
           <template #default="scope">
-            <el-tag type="success">{{ getStringByCode(scope.row.status) }}</el-tag>
+            <el-tag :type="scope.row.status == '33' ? 'success' : 'danger' ">{{ getStringByCode(scope.row.status) }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="describe" show-overflow-tooltip label="描述" width="600" />
@@ -74,7 +74,7 @@
         <el-table-column fixed="right" label="操作" width="280">
           <template #default="scope">
             <el-button @click="handleUpdate(scope.row.id)" link type="primary" size="small">更新</el-button>
-            <el-button @click="handleShelves(scope.row.id)" link type="warning" size="small">下架</el-button>
+            <el-button @click="handleShelves(scope.row)" link type="warning" size="small">{{ scope.row.status == "33" ? "下架" : "上架"}}</el-button>
             <el-button @click="handleDelete(scope.row.id)" link type="danger" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -108,7 +108,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 
 
 import { recycleGoodsStore } from '@/store';
-import { deleteRecycleGoodsType, insertRecycleGoodsType, selectRecycleGoodsType } from '@/api/recycle-goods';
+import { deleteRecycleGoodsType, insertRecycleGoodsType, selectRecycleGoodsType, updateRecycleGoodsType} from '@/api/recycle-goods';
 
 import type { IRecycleGoodsType } from '@/store/modules/recycle-goods';
 import { getStringByCode } from '@/utils/system-dict';
@@ -159,7 +159,20 @@ const handleDelete = (id: string) => {
     .catch(() => { })
 }
 
-const handleShelves = (id: string) => {}
+const handleShelves = async (row: any) => {
+  if (row.status == "33") {
+    row.status = "34"
+  } else {
+    row.status = "33"
+  }
+  const result = await updateRecycleGoodsType(row);
+  if (result.code == 200) {
+    ElMessage.success(result.message)
+    requestRecycleGoodsType();
+  } else {
+    ElMessage.error(result.message)
+  }
+}
 const handleUpdate = (id: string) => { }
 const handleExport = () => { }
 const handleSearch = () => { }

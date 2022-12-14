@@ -9,7 +9,7 @@ export interface ISwiperCreateOrUpdate {
   attachment?: IAttachment,
 }
 
-interface IAttachment {
+export interface IAttachment {
   id?: string,
   url?: string,
   createByUserId?: string,
