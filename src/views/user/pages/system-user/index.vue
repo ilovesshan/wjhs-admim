@@ -125,7 +125,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input :disabled="insertOrUpdateUserData.username=='admin'" v-model="insertOrUpdateUserData.password" show-password
+          <el-input :disabled="insertOrUpdateUserData.id" v-model="insertOrUpdateUserData.password" show-password
             type="password" />
         </el-form-item>
       </el-form>
