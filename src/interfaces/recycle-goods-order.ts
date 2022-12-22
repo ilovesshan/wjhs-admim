@@ -34,3 +34,10 @@ export interface IRecycleOrderDetails {
   isDelete: string
   createTime: string
 }
+
+
+export interface IRecycleOrderState {
+  orderDetail: IRecycleGoodsOrder | any,
+  noteImagePreview: Array<string>,
+  recycleOrderGoodsList: Array<IRecycleOrderDetails>,
+}

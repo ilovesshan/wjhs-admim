@@ -75,7 +75,7 @@
 
 import { selectRecycleGoodsOrderById } from "@/api/recycle-goods-order";
 import ServiceConfig from "@/config/serviceConfig";
-import { IRecycleGoodsOrder } from "@/interfaces/recycle-goods-order";
+import { IRecycleGoodsOrder, IRecycleOrderState } from "@/interfaces/recycle-goods-order";
 import { getStringByCode } from "@/utils/system-dict";
 import { reactive } from "vue";
 import { useRoute } from "vue-router";
@@ -84,7 +84,7 @@ const route = useRoute();
 
 const baseUrl = import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl;
 
-const state = reactive({
+const state = reactive<IRecycleOrderState>({
   orderDetail: {},
   noteImagePreview: [],
   recycleOrderGoodsList: [],
