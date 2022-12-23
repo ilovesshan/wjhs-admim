@@ -90,6 +90,26 @@
         </el-menu-item>
       </el-sub-menu>
 
+      
+      <!-- 订单管理 -->
+      <el-sub-menu index="/order-management">
+        <template #title>
+          <el-icon><Document /></el-icon>
+          <span>订单管理</span>
+        </template>
+        <el-menu-item index="/order-management/recycle-goods-order">
+          <template #title>
+            <el-icon><Box /> </el-icon>
+            <span>回收商品</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/order-management/integral-goods-order">
+          <template #title>
+            <el-icon><Present /> </el-icon>
+            <span>积分商品</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
     
     </el-menu>
   </el-aside>
@@ -99,7 +119,8 @@
 import { ref, watch } from 'vue';
 
 import {
- House, Orange, Goods, Aim, DataBoard, Iphone, Picture, Notification, Monitor, Connection, Setting, Avatar
+ House, Orange, Goods, Aim, DataBoard, Iphone, Picture, Notification, Monitor, Connection, Setting, Avatar, Present, Box, 
+ Document
 } from '@element-plus/icons-vue'
 
 import { useRoute } from "vue-router"

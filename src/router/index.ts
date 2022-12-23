@@ -25,10 +25,10 @@ const commonRoutes: RouteRecordRaw[] = [
       {
         path: "/system",
         name: "system",
-        redirect:"/swiper",
+        redirect: "/swiper",
         meta: { title: "系统管理", icon: "system" },
         component: () => import("@/views/system/index.vue"),
-        children:[
+        children: [
           {
             path: "swiper",
             name: "swiper",
@@ -52,10 +52,10 @@ const commonRoutes: RouteRecordRaw[] = [
       {
         path: "/recycle-goods",
         name: "recycle-goods",
-        redirect:"/recycle-goods-type",
+        redirect: "/recycle-goods-type",
         meta: { title: "回收商品管理", icon: "recycle-goods" },
         component: () => import("@/views/recycle-goods/index.vue"),
-        children:[
+        children: [
           {
             path: "recycle-goods-type",
             name: "recycle-goods-type",
@@ -74,10 +74,10 @@ const commonRoutes: RouteRecordRaw[] = [
       {
         path: "/user",
         name: "user",
-        redirect:"/wx-user",
+        redirect: "/wx-user",
         meta: { title: "用户管理", icon: "user" },
         component: () => import("@/views/user/index.vue"),
-        children:[
+        children: [
           {
             path: "wx-user",
             name: "wx-user",
@@ -89,6 +89,34 @@ const commonRoutes: RouteRecordRaw[] = [
             name: "system-user",
             meta: { title: "系统用户", icon: "system-user" },
             component: () => import("@/views/user/pages/system-user/index.vue"),
+          },
+        ]
+      },
+
+      {
+        path: "/order-management",
+        name: "order-management",
+        redirect: "/recycle-goods-order",
+        meta: { title: "订单管理", icon: "order-management" },
+        component: () => import("@/views/order-management/index.vue"),
+        children: [
+          {
+            path: "recycle-goods-order",
+            name: "recycle-goods-order",
+            meta: { title: "回收商品", icon: "recycle-goods-order" },
+            component: () => import("@/views/order-management/pages/recycle-goods-order/index.vue"),
+          },
+          {
+            path: "recycle-goods-order-detail/:id/:type",
+            name: "recycle-goods-order-detail",
+            meta: { title: "订单详情", icon: "recycle-goods-order-detail" },
+            component: () => import("@/views/order-management/pages/recycle-goods-order-detail/index.vue"),
+          },
+          {
+            path: "integral-goods-order",
+            name: "integral-goods-order",
+            meta: { title: "积分商品", icon: "integral-goods-order" },
+            component: () => import("@/views/order-management/pages/integral-goods-order/index.vue"),
           },
         ]
       }
@@ -104,7 +132,7 @@ const commonRoutes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history:  createWebHistory(import.meta.env.VITE_BASE_PATH),
+  history: createWebHistory(import.meta.env.VITE_BASE_PATH),
   routes: [...commonRoutes],
 });
 
