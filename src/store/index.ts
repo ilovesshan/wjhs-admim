@@ -3,6 +3,7 @@ import swiperModule from "./modules/swiper";
 import userModule from "./modules/user"
 import recycleGoodsModule from "./modules/recycle-goods"
 import orderModule from "./modules/order";
+import accountModule from "./modules/account";
 
 // 用户模块
 const userStore = userModule();
@@ -19,10 +20,14 @@ const recycleGoodsStore = recycleGoodsModule();
 // 订单模块
 const orderStore = orderModule();
 
+// 账户模块
+const accountStore = accountModule();
+
 export {
   userStore,
   swiperStore,
   noticeStore,
   recycleGoodsStore,
-  orderStore
+  orderStore,
+  accountStore
 }
