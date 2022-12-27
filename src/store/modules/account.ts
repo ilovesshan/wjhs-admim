@@ -1,14 +1,17 @@
+import { IUserBalance } from "@/interfaces/user-balance";
 import { IUserIntegral } from "@/interfaces/user-integral";
 import { defineStore } from "pinia";
 
 interface IOrderState {
-  userIntegralList: Array<IUserIntegral>
+  userIntegralList: Array<IUserIntegral>,
+  userBalanceList: Array<IUserBalance>,
 }
 
 const accountModule = defineStore("accountStore", {
   state(): IOrderState {
     return {
       userIntegralList: [],
+      userBalanceList: [],
     }
   },
 
@@ -17,6 +20,10 @@ const accountModule = defineStore("accountStore", {
   actions: {
     saveUserIntegralList(userIntegralList: Array<IUserIntegral>) {
       this.userIntegralList = userIntegralList;
+    },
+
+    saveUserBalanceList(userBalanceList: Array<IUserBalance>) {
+      this.userBalanceList = userBalanceList;
     },
   }
 });

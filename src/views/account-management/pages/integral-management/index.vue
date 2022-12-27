@@ -77,6 +77,11 @@
           </template>
         </el-table-column>
         <el-table-column property="createTime" label="交易时间"  width="200" />
+        <el-table-column fixed="right" label="操作" width="120">
+          <template #default="scope">
+            <el-button @click="showRecordDetail(scope.row.id)" link type="primary" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-dialog>
   </div>
@@ -91,6 +96,7 @@ import { accountStore } from "@/store/index"
 import ServiceConfig from "@/config/serviceConfig";
 import { IUserIntegral } from "@/interfaces/user-integral";
 import { getStringByCode } from "@/utils/system-dict";
+import { ElMessage } from "element-plus";
 
 const dialogTableVisible = ref(false);
 const currentIntegral= ref<IUserIntegral>();
@@ -119,6 +125,10 @@ const handleExport = () => { }
 const handleSelectIntegralRecord = (row: IUserIntegral) => {
   dialogTableVisible.value = true;
   currentIntegral.value = row;
+}
+
+const showRecordDetail = (recordId: string) => {
+  ElMessage.info("功能还未上线，敬请期待！");
 }
 
 </script>
