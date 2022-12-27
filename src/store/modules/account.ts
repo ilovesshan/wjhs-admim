@@ -1,5 +1,4 @@
-import { IUserBalance } from "@/interfaces/user-balance";
-import { IUserIntegral } from "@/interfaces/user-integral";
+import { IUserBalance, IUserIntegral } from "@/interfaces/account";
 import { defineStore } from "pinia";
 
 interface IOrderState {

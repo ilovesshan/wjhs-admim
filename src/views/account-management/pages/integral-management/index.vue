@@ -91,10 +91,10 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
-import { selectIntegralList } from "@/api/user-integral";
+import { selectIntegralList } from "@/api/account";
+import { IUserIntegral } from "@/interfaces/account";
 import { accountStore } from "@/store/index"
 import ServiceConfig from "@/config/serviceConfig";
-import { IUserIntegral } from "@/interfaces/user-integral";
 import { getStringByCode } from "@/utils/system-dict";
 import { ElMessage } from "element-plus";
 

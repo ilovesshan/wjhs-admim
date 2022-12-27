@@ -95,15 +95,15 @@
         <el-table-column show-overflow-tooltip property="userIdFrom" label="收入账户ID" width="200" />
         <el-table-column property="userTypeTo" label="支出账户类型" width="120">
           <template #default="scoped">
-            <el-tag type="primary">{{ getStringByCode(scoped.row.userTypeTo) }}</el-tag>
+            <el-tag >{{ getStringByCode(scoped.row.userTypeTo) }}</el-tag>
           </template>
-        </el-table-column>
+        </el-table-column> 
         <el-table-column show-overflow-tooltip property="userIdTo" label="支出账户ID" width="200" />
 
         <el-table-column property="createTime" label="交易时间" width="200" />
         <el-table-column fixed="right" label="操作" width="120">
           <template #default="scope">
-            <el-button @click="showRecordDetail(scope.row.id)" link type="primary" size="small">查看详情</el-button>
+            <el-button @click="showRecordDetail(scope.row.id)" link type="success" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -145,10 +145,10 @@
 import { computed, ref } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
 import { ElMessage } from "element-plus";
-import { selectBalanceList, updateBalance } from "@/api/user-balance";
+import { selectBalanceList, updateBalance } from "@/api/account";
 import { accountStore, userStore } from "@/store/index"
 import ServiceConfig from "@/config/serviceConfig";
-import { IBalanceTopUp, IUserBalance } from "@/interfaces/user-balance";
+import { IUserBalance, IBalanceTopUp } from "@/interfaces/account";
 import { getStringByCode } from "@/utils/system-dict";
 
 const currentUserType = ref("0");

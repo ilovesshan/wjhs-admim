@@ -1,5 +1,13 @@
-import { IBalanceTopUp } from "@/interfaces/user-balance";
 import request from "./request";
+
+
+// 获取用户积分列表明细
+export function selectIntegralList() {
+  return request({
+    method: "GET",
+    url: `/wx/integrals`,
+  });
+}
 
 
 // 获取用户余额列表明细
