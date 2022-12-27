@@ -119,6 +119,28 @@ const commonRoutes: RouteRecordRaw[] = [
             component: () => import("@/views/order-management/pages/integral-goods-order/index.vue"),
           },
         ]
+      },
+
+      {
+        path: "/account-management",
+        name: "account-management",
+        redirect: "/integral-management",
+        meta: { title: "账户管理", icon: "account-management" },
+        component: () => import("@/views/account-management/index.vue"),
+        children: [
+          {
+            path: "integral-management",
+            name: "integral-management",
+            meta: { title: "积分管理", icon: "integral-management" },
+            component: () => import("@/views/account-management/pages/integral-management/index.vue"),
+          },
+          {
+            path: "balance-management",
+            name: "balance-management",
+            meta: { title: "余额管理", icon: "balance-management" },
+            component: () => import("@/views/account-management/pages/balance-management/index.vue"),
+          },
+        ]
       }
     ]
   },

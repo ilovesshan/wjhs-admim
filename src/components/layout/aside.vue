@@ -110,6 +110,26 @@
           </template>
         </el-menu-item>
       </el-sub-menu>
+      
+      <!-- 账户管理 -->
+      <el-sub-menu index="/account-management">
+        <template #title>
+          <el-icon><CopyDocument /></el-icon>
+          <span>账户管理</span>
+        </template>
+        <el-menu-item index="/account-management/integral-management">
+          <template #title>
+            <el-icon><SuitcaseLine /> </el-icon>
+            <span>积分管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/account-management/balance-management">
+          <template #title>
+            <el-icon><Money /> </el-icon>
+            <span>余额管理</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
     
     </el-menu>
   </el-aside>
@@ -120,7 +140,7 @@ import { ref, watch } from 'vue';
 
 import {
  House, Orange, Goods, Aim, DataBoard, Iphone, Picture, Notification, Monitor, Connection, Setting, Avatar, Present, Box, 
- Document
+ Document, CopyDocument, SuitcaseLine, Money
 } from '@element-plus/icons-vue'
 
 import { useRoute } from "vue-router"
