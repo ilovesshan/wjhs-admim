@@ -21,18 +21,18 @@
 
 
       <!-- 用户管理 -->
-      <el-sub-menu index="/user">
+      <el-sub-menu index="/user-management">
         <template #title>
           <el-icon><Avatar /></el-icon>
           <span>用户管理</span>
         </template>
-        <el-menu-item index="/user/wx-user">
+        <el-menu-item index="/user-management/wx-user">
           <template #title>
             <el-icon><Connection /> </el-icon>
             <span>小程序用户</span>
           </template>
         </el-menu-item>
-        <el-menu-item index="/user/system-user">
+        <el-menu-item index="/user-management/system-user">
           <template #title>
             <el-icon><Setting /> </el-icon>
             <span>系统用户</span>
@@ -42,33 +42,33 @@
 
 
       <!-- 系统管理 -->
-      <el-sub-menu index="/system">
+      <el-sub-menu index="/system-management">
         <template #title>
           <el-icon><Monitor /></el-icon>
           <span>系统管理</span>
         </template>
-        <el-menu-item index="/system/swiper">
+        <el-menu-item index="/system-management/swiper">
           <template #title>
             <el-icon><Picture /> </el-icon>
             <span>轮播图</span>
           </template>
         </el-menu-item>
 
-        <el-menu-item index="/system/notice">
+        <el-menu-item index="/system-management/notice">
           <template #title>
             <el-icon><Notification /> </el-icon>
             <span>通知公告</span>
           </template>
         </el-menu-item>
 
-        <el-menu-item index="/system/app">
+        <el-menu-item index="/system-management/app">
           <template #title>
             <el-icon><Iphone /> </el-icon>
-            <span>App管理</span>
+            <span>App版本</span>
           </template>
         </el-menu-item>
 
-        <el-menu-item index="/system/feedback">
+        <el-menu-item index="/system-management/feedback">
           <template #title>
             <el-icon><Comment /> </el-icon>
             <span>意见反馈</span>

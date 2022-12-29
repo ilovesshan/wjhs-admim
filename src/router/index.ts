@@ -23,35 +23,35 @@ const commonRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/statistical-report/index.vue"),
       },
       {
-        path: "/system",
-        name: "system",
+        path: "/system-management",
+        name: "system-management",
         redirect: "/swiper",
-        meta: { title: "系统管理", icon: "system" },
-        component: () => import("@/views/system/index.vue"),
+        meta: { title: "系统管理", icon: "system-management" },
+        component: () => import("@/views/system-management/index.vue"),
         children: [
           {
             path: "swiper",
             name: "swiper",
             meta: { title: "轮播图管理", icon: "swiper" },
-            component: () => import("@/views/system/pages/swiper/index.vue"),
+            component: () => import("@/views/system-management/pages/swiper/index.vue"),
           },
           {
             path: "notice",
             name: "notice",
             meta: { title: "公告管理", icon: "notice" },
-            component: () => import("@/views/system/pages/notice/index.vue"),
+            component: () => import("@/views/system-management/pages/notice/index.vue"),
           },
           {
             path: "app",
             name: "app",
             meta: { title: "App管理", icon: "swiper" },
-            component: () => import("@/views/system/pages/app/index.vue"),
+            component: () => import("@/views/system-management/pages/app/index.vue"),
           },
           {
             path: "feedback",
             name: "feedback",
             meta: { title: "意见反馈", icon: "feedback" },
-            component: () => import("@/views/system/pages/feedback/index.vue"),
+            component: () => import("@/views/system-management/pages/feedback/index.vue"),
           },
         ]
       },
@@ -78,23 +78,23 @@ const commonRoutes: RouteRecordRaw[] = [
       },
 
       {
-        path: "/user",
-        name: "user",
+        path: "/user-management",
+        name: "user-management",
         redirect: "/wx-user",
         meta: { title: "用户管理", icon: "user" },
-        component: () => import("@/views/user/index.vue"),
+        component: () => import("@/views/user-management/index.vue"),
         children: [
           {
             path: "wx-user",
             name: "wx-user",
             meta: { title: "小程序用户", icon: "wx-user" },
-            component: () => import("@/views/user/pages/wx-user/index.vue"),
+            component: () => import("@/views/user-management/pages/wx-user/index.vue"),
           },
           {
             path: "system-user",
             name: "system-user",
             meta: { title: "系统用户", icon: "system-user" },
-            component: () => import("@/views/user/pages/system-user/index.vue"),
+            component: () => import("@/views/user-management/pages/system-user/index.vue"),
           },
         ]
       },
