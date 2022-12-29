@@ -50,14 +50,14 @@
         <el-menu-item index="/system/swiper">
           <template #title>
             <el-icon><Picture /> </el-icon>
-            <span>轮播图管理</span>
+            <span>轮播图</span>
           </template>
         </el-menu-item>
 
         <el-menu-item index="/system/notice">
           <template #title>
             <el-icon><Notification /> </el-icon>
-            <span>公告管理</span>
+            <span>通知公告</span>
           </template>
         </el-menu-item>
 
@@ -67,6 +67,14 @@
             <span>App管理</span>
           </template>
         </el-menu-item>
+
+        <el-menu-item index="/system/feedback">
+          <template #title>
+            <el-icon><Comment /> </el-icon>
+            <span>意见反馈</span>
+          </template>
+        </el-menu-item>
+
       </el-sub-menu>
       
 
@@ -140,7 +148,7 @@ import { ref, watch } from 'vue';
 
 import {
  House, Orange, Goods, Aim, DataBoard, Iphone, Picture, Notification, Monitor, Connection, Setting, Avatar, Present, Box, 
- Document, CopyDocument, SuitcaseLine, Money
+ Document, CopyDocument, SuitcaseLine, Money, Comment
 } from '@element-plus/icons-vue'
 
 import { useRoute } from "vue-router"

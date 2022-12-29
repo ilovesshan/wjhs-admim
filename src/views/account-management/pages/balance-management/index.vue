@@ -148,8 +148,8 @@ import { ElMessage } from "element-plus";
 import { selectBalanceList, updateBalance } from "@/api/account";
 import { accountStore, userStore } from "@/store/index"
 import ServiceConfig from "@/config/serviceConfig";
-import { IUserBalance, IBalanceTopUp } from "@/interfaces/account";
 import { getStringByCode } from "@/utils/system-dict";
+import { IBalanceTopUp, IUserBalance } from "@/interfaces/account";
 
 const currentUserType = ref("0");
 const topUpData = ref<IBalanceTopUp>({});

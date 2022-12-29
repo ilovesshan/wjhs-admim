@@ -47,6 +47,12 @@ const commonRoutes: RouteRecordRaw[] = [
             meta: { title: "App管理", icon: "swiper" },
             component: () => import("@/views/system/pages/app/index.vue"),
           },
+          {
+            path: "feedback",
+            name: "feedback",
+            meta: { title: "意见反馈", icon: "feedback" },
+            component: () => import("@/views/system/pages/feedback/index.vue"),
+          },
         ]
       },
       {

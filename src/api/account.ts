@@ -1,3 +1,4 @@
+import { IBalanceTopUp } from "@/interfaces/account";
 import request from "./request";
 
 
@@ -27,3 +28,4 @@ export function updateBalance(data: IBalanceTopUp) {
     data,
   });
 }
+

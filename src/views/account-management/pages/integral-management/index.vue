@@ -92,7 +92,7 @@
 import { computed, ref } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
 import { selectIntegralList } from "@/api/account";
-import { IUserIntegral } from "@/interfaces/account";
+import { IUserIntegral } from "@/api/account";
 import { accountStore } from "@/store/index"
 import ServiceConfig from "@/config/serviceConfig";
 import { getStringByCode } from "@/utils/system-dict";
