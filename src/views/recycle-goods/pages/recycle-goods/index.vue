@@ -58,7 +58,7 @@
           <el-table-column type="selection" width="55" />
           <el-table-column type="index" width="50" />
           <el-table-column prop="name" label="商品名称" width="180" align="center" />
-          <el-table-column label="商品图片" width="220">
+          <el-table-column label="商品图片" width="240">
             <template #default="scoped">
               <el-image :preview-teleported="true" style="width: 200px; height: 50px"
                 :src="baseUrl + scoped.row.attachment.url" :preview-src-list="[baseUrl + scoped.row.attachment.url]"
