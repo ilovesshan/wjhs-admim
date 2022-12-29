@@ -2,10 +2,10 @@ import request from "./request";
 
 
 // 根据用户类型获取反馈列表
-export function selectFeedbackListByType(type: string) {
+export function selectFeedbackListByType(userType: string, isSolve: string) {
   return request({
     method: "GET",
-    url: `/feedback?type=${type}`,
+    url: `/feedback?userType=${userType}&isSolve=${isSolve}`,
   });
 }
 

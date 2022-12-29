@@ -13,6 +13,14 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="反馈状态">
+          <el-select v-model="currentIsSolve">
+            <el-option key="" label="全部" value="" />
+            <el-option key="37" label="待处理" value="37" />
+            <el-option key="38" label="已处理" value="38" />
+          </el-select>
+        </el-form-item>
+
         <el-form-item>
           <el-button @click="handleSearch" type="primary">搜索 <el-icon class="el-icon--right">
               <Search />
@@ -61,27 +69,22 @@
         <el-table-column show-overflow-tooltip prop="feedbackDetail" label="反馈详情" width="300" />
         <el-table-column label="反馈状态" width="120">
           <template #default="scoped">
-            <el-tag :type="scoped.row.isSolve == '37' ? 'warning' : 'success' ">{{ getStringByCode(scoped.row.isSolve) }}</el-tag>
+            <el-tag :type="scoped.row.isSolve == '37' ? 'warning' : 'success'">{{ getStringByCode(scoped.row.isSolve)
+}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="反馈图片" width="140">
           <template #default="scoped">
-            <el-image
-              :preview-teleported="true"
-              v-if="scoped.row.attachment && scoped.row.attachment.url"
-              style="width: 100px; height: 30px"
-              :src="baseUrl + scoped.row.attachment.url"
-              :zoom-rate="1.2"
-              :preview-src-list="[baseUrl + scoped.row.attachment.url]"
-              fit="cover"
-            />
+            <el-image :preview-teleported="true" v-if="scoped.row.attachment && scoped.row.attachment.url"
+              style="width: 100px; height: 30px" :src="baseUrl + scoped.row.attachment.url" :zoom-rate="1.2"
+              :preview-src-list="[baseUrl + scoped.row.attachment.url]" fit="cover" />
           </template>
         </el-table-column>
         <el-table-column show-overflow-tooltip prop="createTime" label="反馈时间" width="180" />
         <el-table-column fixed="right" label="操作" width="120">
           <template #default="scoped">
-            <el-button @click="updateFeedbackStatusHandler(scoped.row.id)" link type="primary" :disabled="scoped.row.isSolve == '38'"
-              size="small">标记已解决</el-button>
+            <el-button @click="updateFeedbackStatusHandler(scoped.row.id)" link type="primary"
+              :disabled="scoped.row.isSolve == '38'" size="small">标记已解决</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -100,12 +103,13 @@ import { selectFeedbackListByType, updateFeedbackStatus } from "@/api/feedback";
 import { ElMessage, ElMessageBox } from "element-plus";
 
 const currentUserType = ref("1");
+const currentIsSolve = ref("");
 const selectedIds = ref<Array<string>>([]);
 const baseUrl = import.meta.env.MODE == "development" ? ServiceConfig.devBaseUrl : ServiceConfig.prodBaseUrl;
 const feedbackList = computed<Array<IFeedback>>(() => feedbackStore.feedbackList);
 
 const getFeedbackList = async () => {
-  const result = await selectFeedbackListByType(currentUserType.value);
+  const result = await selectFeedbackListByType(currentUserType.value, currentIsSolve.value);
   if (result.code == 200) {
     feedbackStore.saveRecycleGoodsList(result.data as Array<IFeedback>)
   }
@@ -118,6 +122,7 @@ const handleSelectionChange = (selected: Array<any>) => {
 const handleSearch = () => getFeedbackList();
 const handleReset = () => {
   currentUserType.value = "1";
+  currentIsSolve.value = "";
   getFeedbackList();
 }
 const openDialog = () => { }
