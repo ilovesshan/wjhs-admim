@@ -1,4 +1,5 @@
 import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
@@ -7,7 +8,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd());
   return {
     base: env.VITE_BASE_PATH,
-    plugins: [vue()],
+    plugins: [vue(), VueSetupExtend() ],
     resolve: {
       // 配置路径别名。--->src下的代码
       alias: {

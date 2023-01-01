@@ -60,7 +60,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="recycleGoodsOrder">
 import { computed, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { Search, RefreshRight } from '@element-plus/icons-vue'

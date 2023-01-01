@@ -109,7 +109,7 @@ const commonRoutes: RouteRecordRaw[] = [
           {
             path: "recycle-goods-order",
             name: "recycle-goods-order",
-            meta: { title: "回收商品", icon: "recycle-goods-order" },
+            meta: { title: "回收商品", icon: "recycle-goods-order", keepAlive: true },
             component: () => import("@/views/order-management/pages/recycle-goods-order/index.vue"),
           },
           {
@@ -121,7 +121,7 @@ const commonRoutes: RouteRecordRaw[] = [
           {
             path: "integral-goods-order",
             name: "integral-goods-order",
-            meta: { title: "积分商品", icon: "integral-goods-order" },
+            meta: { title: "积分商品", icon: "integral-goods-order", keepAlive: true  },
             component: () => import("@/views/order-management/pages/integral-goods-order/index.vue"),
           },
         ]

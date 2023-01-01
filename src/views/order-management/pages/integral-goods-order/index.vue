@@ -7,6 +7,6 @@
 <script lang="ts" setup>
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped name="integralGoodsOrder">
 #integral-goods-order-page {}
 </style>
