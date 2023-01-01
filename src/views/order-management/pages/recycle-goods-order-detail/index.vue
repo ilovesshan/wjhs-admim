@@ -30,29 +30,34 @@
         <p>{{ state.orderDetail.totalWeight }}</p>
       </el-form-item>
 
-      <el-form-item label="订单积分：">
+      <el-form-item label="订单积分：" v-if="route.params.type == '10'">
         <p>{{ state.orderDetail.totalIntegral }}</p>
       </el-form-item>
-      <el-form-item label="预约姓名：">
-        <p>{{ state.orderDetail.address.userName }}</p>
+
+      <el-form-item label="用户姓名：">
+        <p>{{ route.params.type == '10' ? state.orderDetail.address.userName : state.orderDetail.submitUser.username }}</p>
       </el-form-item>
 
-      <el-form-item label="预约电话：">
-        <p>{{ state.orderDetail.address.phone }}</p>
+      <el-form-item label="用户电话：">
+        <p>{{ route.params.type == '10' ? state.orderDetail.address.phone : state.orderDetail.submitUser.phone  }}</p>
       </el-form-item>
 
-      <el-form-item label="预约地址：">
+      <el-form-item label="预约地址：" v-if="route.params.type == '10'">
         <p>{{ state.orderDetail.address.province + state.orderDetail.address.city + state.orderDetail.address.area +
             state.orderDetail.address.detailAddress
         }}</p>
 
       </el-form-item>
-      <el-form-item label="预约时间：">
+      <el-form-item label="预约时间：" v-if="route.params.type == '10'">
         <p>{{ state.orderDetail.showAppointmentTime }}</p>
       </el-form-item>
 
       <el-form-item label="下单时间：">
         <p>{{ state.orderDetail.createTime }}</p>
+      </el-form-item>   
+      
+      <el-form-item label="结算时间：" v-if="state.orderDetail.status == '7'">
+        <p>{{ state.orderDetail.updateTime }}</p>
       </el-form-item>
 
       <el-form-item label="图片备注：">

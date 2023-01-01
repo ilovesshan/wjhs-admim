@@ -21,8 +21,10 @@ export interface IRecycleGoodsOrder {
   attachments: Array<IAttachment>,
   address: IAddress,
   receiveUser: IUserInfo,
+  submitUser: IUserInfo,
   isDelete: string,
   createTime: string
+  updateTime: string
 }
 
 export interface IRecycleOrderDetails {
