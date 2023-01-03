@@ -5,6 +5,8 @@ import recycleGoodsModule from "./modules/recycle-goods"
 import orderModule from "./modules/order";
 import accountModule from "./modules/account";
 import feedbackModule from "./modules/feedback";
+import appModule from "./modules/app";
+
 
 // 用户模块
 const userStore = userModule();
@@ -27,6 +29,9 @@ const accountStore = accountModule();
 // 意见反馈模块
 const feedbackStore = feedbackModule();
 
+// APP版本管理模块
+const appStore = appModule();
+
 export {
   userStore,
   swiperStore,
@@ -34,5 +39,6 @@ export {
   recycleGoodsStore,
   orderStore,
   accountStore,
-  feedbackStore
+  feedbackStore,
+  appStore
 }
