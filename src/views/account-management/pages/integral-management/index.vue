@@ -92,11 +92,11 @@
 import { computed, ref } from "vue";
 import { Delete, Download, Search, RefreshRight, Plus, Edit } from '@element-plus/icons-vue'
 import { selectIntegralList } from "@/api/account";
-import { IUserIntegral } from "@/api/account";
 import { accountStore } from "@/store/index"
 import ServiceConfig from "@/config/serviceConfig";
 import { getStringByCode } from "@/utils/system-dict";
 import { ElMessage } from "element-plus";
+import { IUserIntegral } from "@/interfaces/account";
 
 const dialogTableVisible = ref(false);
 const currentIntegral= ref<IUserIntegral>();
