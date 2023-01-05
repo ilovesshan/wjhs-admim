@@ -302,7 +302,7 @@ const datePickerChange = (value: any) => {
 
   ::v-deep .el-upload-list,
   .el-upload-list--text {
-    width: 240px;
+    width: 300px;
   }
 
   .el-card {
